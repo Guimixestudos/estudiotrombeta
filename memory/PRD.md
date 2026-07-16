@@ -78,6 +78,15 @@ Iteração 3 (após preview):
 ### Iteration 5 (Jul/2026) — Novo cliente Estação das Tintas
 - (x) **Estação das Tintas** adicionado: logo (PNG 1.2 MB) salvo em `/app/frontend/public/clients/estacao-tintas.png`. Inserido em `CLIENT_LOGOS` (marquee do hero, `bg: #ffffff`, `fit: contain`, link https://www.instagram.com/estacaodastintas_/) e como case em `REAL_CASES` (id `estacao-das-tintas`, categoria **Varejo**, `isLogoCover: true`, `logoBg: #0a0a0b`). Nenhum outro arquivo foi tocado, arquitetura e demais clientes intactos. Build de produção validado, dependência `lenis` reinstalada via `yarn install`.
 
+### Iteration 6 (Jul/2026) — Redesign dos cards logo-cover (legibilidade)
+- (y) **Fix crítico de legibilidade** em `Portfolio.jsx > CaseCard`: para itens com `isLogoCover: true` (7 cards: KRD, Ebenezer, Papi, Fornalha, Giovana, WM Gessos, Estação das Tintas) o card foi dividido em 2 blocos verticais sólidos ao invés de logo com gradiente semitransparente:
+  - TOP (54%): logo isolado com `object-contain p-8 md:p-9`, background = `logoBg` (padrão `#0a0a0b`), badge categoria + arrow hover ↗
+  - Divisor dourado semitransparente (`rgba(212,166,71,0.45)`)
+  - BOTTOM (46%): bloco `#0a0a0b` sólido com título (`line-clamp-1`), descrição (`line-clamp-3`), tags e VISITAR
+  - Hover: zoom suave 105% no logo (era 110%), arrow fade-in, glow radial sutil preservado
+- (z) Cards com foto normal (Ematech featured, Tech Software, AGW) **mantiveram layout original** (foto-fundo + gradiente + texto overlay) — else branch do componente. Zero regressão.
+- Diff final: 1 arquivo (`Portfolio.jsx`), +73/-11 linhas. Build de produção OK (309 KB gzip).
+
 ## Files changed/created (iterations 1 a 3)
 - /app/frontend/src/data/mock.js (STATS, CLIENT_LOGOS Giovana/Tech/Ebenezer, REAL_CASES Tech Software)
 - /app/frontend/src/components/About.jsx (StatItem invertido + soft-hyphen)

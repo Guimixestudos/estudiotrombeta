@@ -104,6 +104,76 @@ const FeaturedCase = ({ item }) => {
 const CaseCard = ({ item, index }) => {
   const ref = useReveal();
   const isExternal = item.site && item.site.startsWith("http");
+
+  // ----- Logo-cover cards: split layout (logo em cima, texto sólido embaixo) -----
+  if (item.isLogoCover) {
+    return (
+      <a
+        ref={ref}
+        href={item.site && item.site !== "#" ? item.site : "#contato"}
+        target={isExternal ? "_blank" : undefined}
+        rel="noreferrer"
+        data-testid={`case-card-${item.id}`}
+        className="reveal group relative flex flex-col overflow-hidden border border-gold min-h-[380px] bg-[#0a0a0b]"
+        style={{ transitionDelay: `${(index % 6) * 0.06}s` }}
+      >
+        {/* TOP , logo isolado */}
+        <div
+          className="relative h-[54%] overflow-hidden"
+          style={item.logoBg ? { background: item.logoBg } : { background: "#0a0a0b" }}
+        >
+          <img
+            src={item.image}
+            alt={item.name}
+            className="w-full h-full object-contain p-8 md:p-9 transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+          />
+          <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+            <span className="px-3 py-1 bg-[#050505]/80 backdrop-blur border border-gold-strong text-[10px] tracking-[0.3em] uppercase text-gold-light">
+              {item.category}
+            </span>
+            <span className="opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-500 w-10 h-10 grid place-items-center bg-gold text-[#050505]">
+              <ArrowUpRight size={18} strokeWidth={2.4} />
+            </span>
+          </div>
+        </div>
+
+        {/* Divisor dourado sutil */}
+        <div className="h-px bg-[rgba(212,166,71,0.45)]" />
+
+        {/* BOTTOM , texto em bloco sólido */}
+        <div className="relative flex-1 p-5 md:p-6 bg-[#0a0a0b] flex flex-col">
+          <h3 className="font-display text-[20px] md:text-[22px] text-[#f0ecdf] leading-tight mb-1.5 line-clamp-1">
+            {item.name}
+          </h3>
+          <p className="text-[12.5px] text-[#bcb9af] leading-relaxed font-light line-clamp-3 mb-3">
+            {item.description}
+          </p>
+          <div className="mt-auto flex flex-wrap items-center gap-1.5">
+            {item.tags?.map((t) => (
+              <span
+                key={t}
+                className="text-[9.5px] tracking-[0.22em] uppercase text-gold-light border border-gold px-2 py-0.5"
+              >
+                {t}
+              </span>
+            ))}
+            {isExternal && (
+              <span className="ml-auto flex items-center gap-1 text-[10px] tracking-[0.25em] uppercase text-gold-light group-hover:gap-2 transition-all">
+                Visitar <ExternalLink size={12} strokeWidth={2} />
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Glow sutil ao hover */}
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition pointer-events-none">
+          <div className="absolute -inset-1 bg-[radial-gradient(circle_at_50%_100%,rgba(212,166,71,0.22),transparent_55%)]" />
+        </div>
+      </a>
+    );
+  }
+
+  // ----- Cards com foto (Ematech, Tech Software, AGW): layout original overlay -----
   return (
     <a
       ref={ref}
@@ -118,17 +188,9 @@ const CaseCard = ({ item, index }) => {
         <img
           src={item.image}
           alt={item.name}
-          className={`w-full h-full transition-transform duration-[1200ms] ease-out group-hover:scale-110 ${
-            item.isLogoCover ? "object-contain p-10" : "object-cover"
-          }`}
-          style={
-            item.isLogoCover && item.logoBg ? { background: item.logoBg } : undefined
-          }
+          className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-110"
         />
-        {!item.isLogoCover && <div className="absolute inset-0 img-dim" />}
-        {item.isLogoCover && (
-          <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-t from-[#050505] via-[#050505]/85 to-transparent" />
-        )}
+        <div className="absolute inset-0 img-dim" />
       </div>
 
       <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
