@@ -80,12 +80,13 @@ Iteração 3 (após preview):
 
 ### Iteration 6 (Jul/2026) — Redesign dos cards logo-cover (legibilidade)
 - (y) **Fix crítico de legibilidade** em `Portfolio.jsx > CaseCard`: para itens com `isLogoCover: true` (7 cards: KRD, Ebenezer, Papi, Fornalha, Giovana, WM Gessos, Estação das Tintas) o card foi dividido em 2 blocos verticais sólidos ao invés de logo com gradiente semitransparente:
-  - TOP (54%): logo isolado com `object-contain p-8 md:p-9`, background = `logoBg` (padrão `#0a0a0b`), badge categoria + arrow hover ↗
+  - TOP (54%): logo isolado, detecção automática JPG (`object-cover`, preenche 100%) vs PNG (`object-contain p-3 md:p-4`, com respiro pequeno), background = `logoBg` (padrão `#0a0a0b`), badge categoria + arrow hover ↗
   - Divisor dourado semitransparente (`rgba(212,166,71,0.45)`)
   - BOTTOM (46%): bloco `#0a0a0b` sólido com título (`line-clamp-1`), descrição (`line-clamp-3`), tags e VISITAR
   - Hover: zoom suave 105% no logo (era 110%), arrow fade-in, glow radial sutil preservado
 - (z) Cards com foto normal (Ematech featured, Tech Software, AGW) **mantiveram layout original** (foto-fundo + gradiente + texto overlay) — else branch do componente. Zero regressão.
-- Diff final: 1 arquivo (`Portfolio.jsx`), +73/-11 linhas. Build de produção OK (309 KB gzip).
+- (aa) **Estação das Tintas ajuste final**: `logoBg` mudado de `#0a0a0b` para `#ffffff` porque o PNG tem transparência real nos cantos e círculo BRANCO baked-in. Com fundo branco, os cantos transparentes se fundem com o círculo do logo → aparência limpa e completa, matching visual com Ebenezer (roxo) e as demais logos JPG que preenchem 100%.
+- Diff final da iteração: 2 arquivos (`Portfolio.jsx` +73/-11, `mock.js` 1 linha). Build de produção OK (309 KB gzip).
 
 ## Files changed/created (iterations 1 a 3)
 - /app/frontend/src/data/mock.js (STATS, CLIENT_LOGOS Giovana/Tech/Ebenezer, REAL_CASES Tech Software)

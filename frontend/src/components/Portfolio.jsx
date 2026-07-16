@@ -107,6 +107,12 @@ const CaseCard = ({ item, index }) => {
 
   // ----- Logo-cover cards: split layout (logo em cima, texto sólido embaixo) -----
   if (item.isLogoCover) {
+    // JPGs têm background embutido , preenchem 100% do topo (object-cover).
+    // PNGs (transparência) usam object-contain com pequeno respiro.
+    const isJpg = /\.(jpe?g)$/i.test(item.image || "");
+    const imgFitClass = isJpg
+      ? "object-cover"
+      : "object-contain p-3 md:p-4";
     return (
       <a
         ref={ref}
@@ -125,7 +131,7 @@ const CaseCard = ({ item, index }) => {
           <img
             src={item.image}
             alt={item.name}
-            className="w-full h-full object-contain p-8 md:p-9 transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+            className={`w-full h-full ${imgFitClass} transition-transform duration-[1200ms] ease-out group-hover:scale-105`}
           />
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
             <span className="px-3 py-1 bg-[#050505]/80 backdrop-blur border border-gold-strong text-[10px] tracking-[0.3em] uppercase text-gold-light">

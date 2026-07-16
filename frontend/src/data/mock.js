@@ -262,7 +262,7 @@ export const REAL_CASES = [
     image: "/clients/estacao-tintas.png",
     tags: ["Identidade", "Redes Sociais", "Captação"],
     isLogoCover: true,
-    logoBg: "#0a0a0b",
+    logoBg: "#ffffff",
   },
 ];
 
