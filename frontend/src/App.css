@@ -1,34 +1,119 @@
-.App-logo {
-    height: 40vmin;
+/* App-specific tiny overrides , most styles live in index.css */
+.App {
+    background-color: #050505;
+    min-height: 100vh;
+    position: relative;
+    z-index: 0;
+}
+
+/* Cinematic horizontal gold beam */
+.beam {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 166, 71, 0.6), transparent);
     pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
-}
-
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+/* Section label */
+.section-label {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+    gap: 0.65rem;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    color: #d4a647;
+}
+.section-label::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: #d4a647;
 }
 
-.App-link {
-    color: #61dafb;
+/* Number counter */
+.counter-num {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    line-height: 1;
+    background: linear-gradient(180deg, #f8e0a4, #d4a647 55%, #8c6a1f);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Service card icon plate */
+.svc-icon-plate {
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 30% 25%, rgba(212, 166, 71, 0.22), rgba(212, 166, 71, 0.05));
+    border: 1px solid rgba(212, 166, 71, 0.3);
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+}
+.premium-card:hover .svc-icon-plate {
+    transform: rotate(-6deg) scale(1.06);
+    box-shadow: 0 0 35px -8px rgba(212, 166, 71, 0.6);
+}
+
+/* Process step circle */
+.step-bullet {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #0a0a0b;
+    border: 1px solid rgba(212, 166, 71, 0.4);
+    color: #d4a647;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    z-index: 2;
+    position: relative;
+    transition: all 0.4s ease;
+}
+.step-bullet.active,
+.step-row:hover .step-bullet {
+    background: linear-gradient(180deg, #f0c870, #d4a647);
+    color: #0a0a0b;
+    box-shadow: 0 0 30px -3px rgba(212, 166, 71, 0.7);
+}
+
+/* Tab pill for portfolio */
+.pill {
+    padding: 0.45rem 1rem;
+    border: 1px solid rgba(212, 166, 71, 0.25);
+    color: #c0bdb1;
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background: transparent;
+}
+.pill:hover {
+    color: #f0c870;
+    border-color: rgba(212, 166, 71, 0.55);
+}
+.pill.active {
+    background: linear-gradient(180deg, #f0c870, #d4a647);
+    color: #0a0a0b;
+    border-color: #f0c870;
+}
+
+/* Image dim overlay for portfolio cards */
+.img-dim {
+    background: linear-gradient(180deg, rgba(5,5,5,0.0) 30%, rgba(5,5,5,0.85) 80%, #050505 100%);
+}
+
+/* Glitch line under hero headlines */
+.kerning-tight {
+    letter-spacing: -0.04em;
+}
+.kerning-wide {
+    letter-spacing: 0.32em;
 }
